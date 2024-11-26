@@ -7,6 +7,7 @@ import List from '@/components/List';
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '@/services/firebase';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
+import { toast } from 'react-toastify';
 
 const COLLECTION_NAME = 'lists';
 
@@ -63,6 +64,7 @@ const ListController = () => {
       }));
 
       await saveItemToFirestore(newItem);
+      toast.success('List item added successfully');
     }
   };
 
@@ -95,7 +97,7 @@ const ListController = () => {
         ...movedItem,
         status: destStatus,
       });
-
+      toast.success('Status updated successfully');
       return {
         ...prev,
         [sourceStatus]: sourceItems,
