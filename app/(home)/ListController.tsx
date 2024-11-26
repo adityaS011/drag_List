@@ -84,7 +84,8 @@ const ListController = () => {
     const sourceStatus = source.droppableId as STATUS;
     const destStatus = destination.droppableId as STATUS;
 
-    if (sourceStatus === destStatus && source.index === destination.index) {
+    if (sourceStatus === destStatus) {
+      toast.error('Not Updated: Same Status list');
       return;
     }
 
@@ -97,7 +98,6 @@ const ListController = () => {
         ...movedItem,
         status: destStatus,
       });
-      toast.success('Status updated successfully');
       return {
         ...prev,
         [sourceStatus]: sourceItems,
@@ -107,6 +107,7 @@ const ListController = () => {
 
     const movedItem = lists[sourceStatus][source.index];
     await saveItemToFirestore({ ...movedItem, status: destStatus });
+    toast.success('Status updated successfully');
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>

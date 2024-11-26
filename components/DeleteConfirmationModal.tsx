@@ -1,9 +1,13 @@
+import cn from '@/utils/cn';
 import React from 'react';
+import { ClipLoader } from 'react-spinners';
 
 const DeleteConfirmationModal = ({
+  isDeleting,
   onConfirm,
   onCancel,
 }: {
+  isDeleting: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }) => {
@@ -17,9 +21,18 @@ const DeleteConfirmationModal = ({
         <div className='flex justify-between mt-4'>
           <button
             onClick={onConfirm}
-            className='bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700'
+            className={cn(
+              `flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 `,
+              isDeleting && 'opacity-50 cursor-not-allowed'
+            )}
           >
-            Yes, Delete
+            {isDeleting ? (
+              <div className='flex flex-row gap-2 items-center'>
+                <p>Yes, Delete</p> <ClipLoader size={20} color='#ffffff' />
+              </div>
+            ) : (
+              'Yes Delete'
+            )}
           </button>
           <button
             onClick={onCancel}

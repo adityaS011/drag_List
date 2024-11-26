@@ -44,7 +44,7 @@ const List = ({
           </h2>
           <p className='text-gray-500'>{listItems.length}</p>
         </div>
-        <div className='flex flex-row gap-2 items-center text-gray-400 hover:text-gray-700 cursor-pointer'>
+        <div className='flex flex-row gap-2 items-center text-gray-400  cursor-pointer'>
           <BsThreeDots
             className='hover:text-gray-700 '
             onClick={() => {
@@ -53,9 +53,7 @@ const List = ({
           />
           <BiPlus
             className='w-5 h-5 hover:text-gray-700 '
-            onClick={() => {
-              toast.warn('Functionality Unavailable');
-            }}
+            onClick={handleAddItem}
           />
         </div>
       </div>

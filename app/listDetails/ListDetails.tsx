@@ -7,6 +7,8 @@ import { db } from '@/services/firebase';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteConfirmationModal from '@/components/DeleteConfirmationModal';
+import { ClipLoader } from 'react-spinners';
+import cn from '@/utils/cn';
 
 const COLLECTION_NAME = 'lists';
 
@@ -14,7 +16,8 @@ const ListDetails = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const id = searchParams?.get('id');
-
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [listItem, setListItem] = useState({
     title: '',
     description: '',
@@ -49,13 +52,17 @@ const ListDetails = () => {
   }, [id, router]);
 
   const handleSave = async () => {
+    setIsSaving(true);
     try {
       const docRef = doc(db, COLLECTION_NAME, id as string);
       await updateDoc(docRef, listItem);
       toast.success('List updated successfully!');
+      router.push('/');
     } catch (error) {
       console.error('Error updating document:', error);
       toast.error('Failed to update the list.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -64,6 +71,7 @@ const ListDetails = () => {
   };
 
   const confirmDelete = async () => {
+    setIsDeleting(true);
     try {
       const docRef = doc(db, COLLECTION_NAME, id as string);
       await deleteDoc(docRef);
@@ -72,6 +80,8 @@ const ListDetails = () => {
     } catch (error) {
       console.error('Error deleting document:', error);
       toast.error('Failed to delete the list.');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -148,15 +158,31 @@ const ListDetails = () => {
             </label>
           </div>
           <div className='flex justify-between mt-6'>
+            {/* Save Button */}
             <button
               onClick={handleSave}
-              className='bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700'
+              disabled={isSaving}
+              className={cn(
+                `flex items-center justify-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700`,
+                isSaving && 'opacity-50 cursor-not-allowed'
+              )}
             >
-              Save Changes
+              {isSaving ? (
+                <div className='flex flex-row gap-2 items-center'>
+                  <p>Save Changes</p> <ClipLoader size={20} color='#ffffff' />
+                </div>
+              ) : (
+                'Save Changes'
+              )}
             </button>
+
             <button
               onClick={handleDelete}
-              className='bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700'
+              disabled={isDeleting}
+              className={cn(
+                `flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 `,
+                isDeleting && 'opacity-50 cursor-not-allowed'
+              )}
             >
               Delete List
             </button>
@@ -164,9 +190,9 @@ const ListDetails = () => {
         </div>
       </div>
 
-      {/* Show Delete Confirmation Modal */}
       {showModal && (
         <DeleteConfirmationModal
+          isDeleting={isDeleting}
           onConfirm={confirmDelete}
           onCancel={() => setShowModal(false)}
         />
