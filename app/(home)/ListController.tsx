@@ -65,7 +65,6 @@ const ListController = () => {
       }));
 
       await saveItemToFirestore(newItem);
-      toast.success('List item added successfully');
     }
   };
 
