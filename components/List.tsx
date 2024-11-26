@@ -8,6 +8,7 @@ import { BsThreeDots } from 'react-icons/bs';
 import { BiPlus } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
 import ListShimmer from './ListShimmer';
+import { toast } from 'react-toastify';
 
 const List = ({
   isLoading,
@@ -44,8 +45,18 @@ const List = ({
           <p className='text-gray-500'>{listItems.length}</p>
         </div>
         <div className='flex flex-row gap-2 items-center text-gray-400 hover:text-gray-700 cursor-pointer'>
-          <BsThreeDots />
-          <BiPlus className='w-5 h-5' />
+          <BsThreeDots
+            className='hover:text-gray-700 '
+            onClick={() => {
+              toast.warn('Functionality Unavailable');
+            }}
+          />
+          <BiPlus
+            className='w-5 h-5 hover:text-gray-700 '
+            onClick={() => {
+              toast.warn('Functionality Unavailable');
+            }}
+          />
         </div>
       </div>
       <Droppable droppableId={status}>
