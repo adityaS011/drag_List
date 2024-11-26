@@ -59,5 +59,5 @@
   </main>
   <footer>
     <p>Built with ❤️ by <strong>Your Name</strong>.</p>
-    <p>Follow me on <a href="https://github.com/your-profile" target="_blank">GitHub</a>.</p>
+    <p>Follow me on <a href="https://github.com/adityaS011" target="_blank">GitHub</a>.</p>
   </footer>
