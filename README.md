@@ -2,6 +2,7 @@
     <h1>🔥 List Status Manager</h1>
     <p>An elegant app to manage your tasks with drag-and-drop magic.</p>
   </header>
+  <img src="https://github.com/adityaS011/drag_List/blob/main/public/Screenshot%202024-11-26%20223935.png" alt="Project Preview" style="width: 100%; border-radius: 10px; margin: 20px 0;" />
   <main>
     <section>
       <h2>✨ Features</h2>
