@@ -1,13 +1,11 @@
 import React from 'react';
 
-interface ModalProps {
-  onConfirm: () => void;
-  onCancel: () => void;
-}
-
-const DeleteConfirmationModal: React.FC<ModalProps> = ({
+const DeleteConfirmationModal = ({
   onConfirm,
   onCancel,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
 }) => {
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>

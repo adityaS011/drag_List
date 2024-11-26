@@ -18,9 +18,11 @@ const ListController = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<STATUS | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchLists = async () => {
       const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
       const data: Record<STATUS, ListType[]> = {
@@ -36,6 +38,7 @@ const ListController = () => {
       });
 
       setLists(data);
+      setIsLoading(false);
     };
 
     fetchLists().catch(console.error);
@@ -61,19 +64,6 @@ const ListController = () => {
 
       await saveItemToFirestore(newItem);
     }
-  };
-
-  const handleDrop = async (item: ListType, newStatus: STATUS) => {
-    setLists((prev) => {
-      const sourceStatus = item.status;
-      return {
-        ...prev,
-        [sourceStatus]: prev[sourceStatus].filter((i) => i.id !== item.id),
-        [newStatus]: [...prev[newStatus], { ...item, status: newStatus }],
-      };
-    });
-
-    await saveItemToFirestore({ ...item, status: newStatus });
   };
 
   const openModal = (status: STATUS) => {
@@ -118,10 +108,11 @@ const ListController = () => {
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className='flex flex-row w-full justify-evenly gap-4 mx-14 my-14'>
+      <div className='flex flex-col md:flex-row w-full justify-evenly gap-4 mx-2 md:mx-14 my-14'>
         {Object.entries(lists).map(([status, items]) => (
           <List
             key={status}
+            isLoading={isLoading}
             status={status as STATUS}
             listItems={items}
             handleAddItem={() => openModal(status as STATUS)}

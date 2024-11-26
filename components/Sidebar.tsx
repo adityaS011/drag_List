@@ -47,7 +47,7 @@ const Sidebar = () => {
             currentTab === 'tasks' && 'bg-blue-200'
           )}
           onClick={() => {
-            handleClick('/tasks');
+            handleClick('/');
           }}
         >
           <GoTasklist /> Tasks
@@ -58,7 +58,7 @@ const Sidebar = () => {
             currentTab === 'team' && 'bg-blue-200'
           )}
           onClick={() => {
-            handleClick('/team');
+            handleClick('/');
           }}
         >
           <RiTeamFill /> Team

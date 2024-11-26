@@ -7,20 +7,26 @@ import cn from '@/utils/cn';
 import { BsThreeDots } from 'react-icons/bs';
 import { BiPlus } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
+import ListShimmer from './ListShimmer';
 
 const List = ({
+  isLoading,
   status,
   listItems,
   handleAddItem,
 }: {
   status: STATUS;
+  isLoading: boolean;
   listItems: ListType[];
   handleAddItem: () => void;
 }) => {
   const router = useRouter();
+  if (isLoading) {
+    return <ListShimmer />;
+  }
 
   return (
-    <div className='w-1/3 rounded-md h-fit p-4 flex flex-col gap-4'>
+    <div className='md:w-1/3 w-full rounded-md h-fit p-4 flex flex-col gap-4'>
       <div className='flex flex-row items-center justify-between px-1 h-8'>
         <div className='flex flex-row gap-2 items-center'>
           <h2

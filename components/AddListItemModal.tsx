@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-interface AddListItemModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (title: string, description: string) => void;
-}
-
-const AddListItemModal: React.FC<AddListItemModalProps> = ({
+const AddListItemModal = ({
   isOpen,
   onClose,
   onSubmit,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (title: string, description: string) => void;
 }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -20,6 +19,7 @@ const AddListItemModal: React.FC<AddListItemModalProps> = ({
       setTitle('');
       setDescription('');
       onClose();
+      toast.success('List created successfully!');
     }
   };
 
