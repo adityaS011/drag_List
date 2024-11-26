@@ -6,6 +6,7 @@ import { ListType, STATUS } from '../../utils/types';
 import List from '@/components/List';
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '@/services/firebase';
+import 'react-toastify/dist/ReactToastify.css';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { toast } from 'react-toastify';
 
